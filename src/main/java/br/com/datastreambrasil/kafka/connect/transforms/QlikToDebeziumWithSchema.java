@@ -18,23 +18,23 @@ public class QlikToDebeziumWithSchema<R extends ConnectRecord<R>> implements Tra
     @Override
     @SuppressWarnings("unchecked")
     public R apply(R record) {
-        if (record.value() == null) {
-            return record;
-        }
-
-        if (!(record.value() instanceof Map)) {
-            throw new RuntimeException("Input message is not in expected Map format");
-        }
-
-        Map<String, Object> qlikMessage = (Map<String, Object>) record.value();
-
-        if (!qlikMessage.containsKey("data")) {
-            return record;
-        }
-
-        Map<String, Object> data = (Map<String, Object>) qlikMessage.get("data");
-        Map<String, Object> beforeData = (Map<String, Object>) qlikMessage.get("beforeData");
-        Map<String, Object> headers = (Map<String, Object>) qlikMessage.get("headers");
+//        if (record.value() == null) {
+//            return record;
+//        }
+//
+//        if (!(record.value() instanceof Map)) {
+//            throw new RuntimeException("Input message is not in expected Map format");
+//        }
+//
+//        Map<String, Object> qlikMessage = (Map<String, Object>) record.value();
+//
+//        if (!qlikMessage.containsKey("data")) {
+//            return record;
+//        }
+//
+//        Map<String, Object> data = (Map<String, Object>) qlikMessage.get("data");
+//        Map<String, Object> beforeData = (Map<String, Object>) qlikMessage.get("beforeData");
+//        Map<String, Object> headers = (Map<String, Object>) qlikMessage.get("headers");
 
         Map<String, Object> payload = new HashMap<>();
         Map<String, Object> message = new HashMap<>();
