@@ -37,21 +37,22 @@ public class QlikToDebeziumWithSchema<R extends ConnectRecord<R>> implements Tra
         Map<String, Object> headers = (Map<String, Object>) qlikMessage.get("headers");
 
         Map<String, Object> payload = new HashMap<>();
+        Map<String, Object> message = new HashMap<>();
 //        payload.put("after", data);
 //        payload.put("before", beforeData);
 //        payload.put("op", headers.get("operation").toString().substring(0,1).toLowerCase());
 
-        Schema envelopeSchema = getSchema(data);
-        Struct envelope = new Struct(envelopeSchema);
-        envelope.put("payload", payload);
+//        Schema envelopeSchema = getSchema(data);
+//        Struct envelope = new Struct(envelopeSchema);
+        message.put("payload", payload);
 
         return record.newRecord(
                 record.topic(),
                 record.kafkaPartition(),
                 record.keySchema(),
                 record.key(),
-                envelopeSchema,
-                envelope,
+                null,
+                message,
                 record.timestamp()
         );
     }
