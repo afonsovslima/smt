@@ -36,9 +36,6 @@ public class QlikToDebeziumWithSchema<R extends ConnectRecord<R>> implements Tra
         Map<String, Object> beforeData = (Map<String, Object>) qlikMessage.get("beforeData");
         Map<String, Object> headers = (Map<String, Object>) qlikMessage.get("headers");
 
-        data = new HashMap<>();
-        beforeData = new HashMap<>();
-
         Map<String, Object> payload = new HashMap<>();
         Map<String, Object> message = new HashMap<>();
 //        payload.put("after", data);
