@@ -43,7 +43,7 @@ public class QlikToDebeziumWithSchema<R extends ConnectRecord<R>> implements Tra
 
         Schema envelopeSchema = getSchema(data);
         Struct envelope = new Struct(envelopeSchema);
-        envelope.put("payload", payload);
+//        envelope.put("payload", payload);
 
         return record.newRecord(
                 record.topic(),
@@ -84,10 +84,10 @@ public class QlikToDebeziumWithSchema<R extends ConnectRecord<R>> implements Tra
         Schema schema = schemaBuilder.build();
 
         Schema envelopeSchema = SchemaBuilder.struct()
-                .field("payload", schema) // ou mais elaborado
+//                .field("payload", schema) // ou mais elaborado
                 .build();
 
-        return envelopeSchema;
+        return schema;
     }
 
     @Override
