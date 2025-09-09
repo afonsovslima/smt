@@ -37,9 +37,9 @@ public class QlikToDebeziumWithSchema<R extends ConnectRecord<R>> implements Tra
         Map<String, Object> headers = (Map<String, Object>) qlikMessage.get("headers");
 
         Map<String, Object> payload = new HashMap<>();
-        payload.put("after", data);
-        payload.put("before", beforeData);
-        payload.put("op", headers.get("operation").toString().substring(0,1).toLowerCase());
+//        payload.put("after", data);
+//        payload.put("before", beforeData);
+//        payload.put("op", headers.get("operation").toString().substring(0,1).toLowerCase());
 
         Schema envelopeSchema = getSchema(data);
         Struct envelope = new Struct(envelopeSchema);
@@ -57,30 +57,30 @@ public class QlikToDebeziumWithSchema<R extends ConnectRecord<R>> implements Tra
     }
 
     private static Schema getSchema(Map<String, Object> data) {
-        SchemaBuilder schemaFieldsBuilder = SchemaBuilder.struct().name("Fields");
-        for (Map.Entry<String, Object> entry : data.entrySet()) {
-            String fieldName = entry.getKey();
-            Object value = entry.getValue();
-
-            if (value instanceof Integer) {
-                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_INT32_SCHEMA);
-            } else if (value instanceof Long) {
-                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_INT64_SCHEMA);
-            } else if (value instanceof Boolean) {
-                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_BOOLEAN_SCHEMA);
-            } else if (value instanceof Double || value instanceof Float) {
-                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_FLOAT64_SCHEMA);
-            } else {
-                // default -> string (para nulls, datas, etc)
-                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_STRING_SCHEMA);
-            }
-        }
-        Schema schemaFields = schemaFieldsBuilder.build();
+//        SchemaBuilder schemaFieldsBuilder = SchemaBuilder.struct().name("Fields");
+//        for (Map.Entry<String, Object> entry : data.entrySet()) {
+//            String fieldName = entry.getKey();
+//            Object value = entry.getValue();
+//
+//            if (value instanceof Integer) {
+//                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_INT32_SCHEMA);
+//            } else if (value instanceof Long) {
+//                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_INT64_SCHEMA);
+//            } else if (value instanceof Boolean) {
+//                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_BOOLEAN_SCHEMA);
+//            } else if (value instanceof Double || value instanceof Float) {
+//                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_FLOAT64_SCHEMA);
+//            } else {
+//                // default -> string (para nulls, datas, etc)
+//                schemaFieldsBuilder.field(fieldName, Schema.OPTIONAL_STRING_SCHEMA);
+//            }
+//        }
+//        Schema schemaFields = schemaFieldsBuilder.build();
 
         SchemaBuilder schemaBuilder = SchemaBuilder.struct().name("Main");
-        schemaBuilder.field("after", schemaFields);
-        schemaBuilder.field("before", schemaFields);
-        schemaBuilder.field("op", Schema.OPTIONAL_STRING_SCHEMA);
+//        schemaBuilder.field("after", schemaFields);
+//        schemaBuilder.field("before", schemaFields);
+//        schemaBuilder.field("op", Schema.OPTIONAL_STRING_SCHEMA);
         Schema schema = schemaBuilder.build();
 
         Schema envelopeSchema = SchemaBuilder.struct()
